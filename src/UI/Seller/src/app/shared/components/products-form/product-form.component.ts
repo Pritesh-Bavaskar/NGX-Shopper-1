@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formErrorService: AppFormErrorService,
     private regexService: RegexService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.setForm();
@@ -38,6 +38,11 @@ export class ProductFormComponent implements OnInit {
       ID: this._existingProduct.ID || '',
       Name: this._existingProduct.Name || '',
       Description: this._existingProduct.Description || '',
+      MaxLimit:
+        (this._existingProduct &&
+          this._existingProduct.xp &&
+          this._existingProduct.xp.MaxQuantityLimit) ||
+        '',
       Active: !!this._existingProduct.Active,
       Featured: this._existingProduct.xp && this._existingProduct.xp.Featured,
     });
@@ -53,6 +58,11 @@ export class ProductFormComponent implements OnInit {
         this._existingProduct.Name || '',
         [Validators.required, Validators.pattern(this.regexService.ID)],
       ],
+      MaxLimit: [(
+        this._existingProduct &&
+        this._existingProduct.xp &&
+        this._existingProduct.xp.MaxQuantityLimit) || ''
+      ],
       Description: [this._existingProduct.Description || ''],
       Active: [!!this._existingProduct.Active],
       Featured: [this._existingProduct.xp && this._existingProduct.xp.Featured],
@@ -60,14 +70,41 @@ export class ProductFormComponent implements OnInit {
   }
 
   protected onSubmit() {
+
+    let MaxLimitValue = this.productForm.value.MaxLimit;
+    let product;
+    if (MaxLimitValue == '') {
+      product = {
+        ...this.productForm.value,
+        xp: {
+          MaxQuantityLimit: 99,
+          Featured: this.productForm.value.Featured
+        },
+      };
+    }
+    else {
+      product = {
+        ...this.productForm.value,
+        xp: {
+          MaxQuantityLimit: MaxLimitValue,
+          Featured: this.productForm.value.Featured
+        },
+      };
+    }
+
     if (this.productForm.status === 'INVALID') {
       return this.formErrorService.displayFormErrors(this.productForm);
     }
 
-    const product = {
-      ...this.productForm.value,
-      xp: { Featured: this.productForm.value.Featured },
-    };
+
+
+    // const product = {
+    //   ...this.productForm.value,
+    //   xp: {
+    //     MaxQuantityLimit: MaxLimitValue,
+    //     Featured: this.productForm.value.Featured
+    //   },
+    // };
 
     this.formSubmitted.emit(product);
   }

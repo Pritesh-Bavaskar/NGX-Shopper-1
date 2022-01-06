@@ -154,8 +154,8 @@ export class OrderHistoryComponent implements AfterViewInit {
       this.OcUserGroupService.ListUserAssignments('BUYER_ORGANIZATION', opt).subscribe(res => {
 
         for (let i = 0; i < res.Items.length; i++) {
-          console.log("con1: ", res.Items[i].UserID)
-          console.log("con2:", this.fromUserID)
+          // console.log("con1: ", res.Items[i].UserID)
+          // console.log("con2:", this.fromUserID)
           if (this.fromUserID == res.Items[i].UserID) {
             this.isVerified = true;
             return

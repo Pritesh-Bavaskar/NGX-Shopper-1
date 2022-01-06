@@ -25,6 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
   products: BuyerProduct[];
   lineItems: ListLineItem;
   productsSet = false;
+  productMaxValue = false;
   alive = true;
 
   constructor(
@@ -33,7 +34,7 @@ export class CartComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private ocOrderService: OcOrderService,
     private ocMeService: OcMeService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.currentOrder$ = this.appStateService.orderSubject;
@@ -48,7 +49,9 @@ export class CartComponent implements OnInit, OnDestroy {
           );
           forkJoin(queue).subscribe((prods) => {
             this.products = prods;
+            // console.log(this.products) //console ordercloud
             this.productsSet = true;
+
           });
         }
       });
