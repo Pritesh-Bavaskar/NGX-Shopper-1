@@ -21,7 +21,7 @@
                            [productDetails]="li.Product"
                            readOnly="true"></shared-line-item-card>
   </shared-lineitem-list-wrapper>
-  <form *ngIf="!appConfig.anonymousShoppingEnabled"
+  <!-- <form *ngIf="!appConfig.anonymousShoppingEnabled"
         novalidate
         [formGroup]="form">
     <textarea type="text"
@@ -29,7 +29,7 @@
               formControlName="comments"
               class="form-control">
     </textarea>
-  </form>
+  </form> -->
 </div>
 <button class="btn btn-primary mt-4"
         [disabled]="isSubmittingOrder"

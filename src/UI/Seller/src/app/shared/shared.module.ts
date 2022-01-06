@@ -27,6 +27,10 @@ import { CategoryFormComponent } from './components/category-form/category-form.
 import { CategoryDetailsComponent } from './containers/category-details/category-details.component';
 import { ProductTableComponent } from '@app-seller/shared/containers/product-table/product-table.component';
 import { ProductFormComponent } from '@app-seller/shared/components/products-form/product-form.component';
+import { UserTableShowgroupsComponent } from './containers/user-table-showgroups/user-table-showgroups.component';
+import { AssignedGroupsComponent } from './components/assigned-groups/assigned-groups.component';
+import { AddressAssignmentComponent } from './components/address-assignment/address-assignment.component';
+import { AssignedGroupsTableComponent } from './components/assigned-groups-table/assigned-groups-table.component';
 
 @NgModule({
   imports: [
@@ -86,6 +90,10 @@ import { ProductFormComponent } from '@app-seller/shared/components/products-for
     CategoryDetailsComponent,
     ProductTableComponent,
     ProductFormComponent,
+    UserTableShowgroupsComponent,
+    AssignedGroupsComponent,
+    AddressAssignmentComponent,
+    AssignedGroupsTableComponent,
   ],
 })
 export class SharedModule {}

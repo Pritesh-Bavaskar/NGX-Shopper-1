@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import { OrderStatus } from '@app-buyer/order/models/order-status.model';
-import { OcMeService, ListOrder } from '@ordercloud/angular-sdk';
+import { OcMeService, ListOrder, OcOrderService, OcUserGroupService } from '@ordercloud/angular-sdk';
 import { MeOrderListOptions } from '@app-buyer/order/models/me-order-list-options';
 import { Observable } from 'rxjs';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -15,19 +15,29 @@ import { FavoriteOrdersService } from '@app-buyer/shared/services/favorites/favo
 export class OrderHistoryComponent implements AfterViewInit {
   alive = true;
   columns: string[] = ['ID', 'Status', 'DateSubmitted', 'Total'];
+  allOrders$: Observable<ListOrder>;
   orders$: Observable<ListOrder>;
+  verifyOrders$: Observable<ListOrder>;
   hasFavoriteOrdersFilter = false;
+  fromUserID: any;
   sortBy: string;
+  isVerified: Boolean = false
+  userGrpID = "USER_GROUP_ADMIN"
   @Input() approvalVersion: boolean;
 
   constructor(
     private ocMeService: OcMeService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private favoriteOrdersService: FavoriteOrdersService
-  ) {}
+    private favoriteOrdersService: FavoriteOrdersService,
+    private ocOrderService: OcOrderService,
+    private OcUserGroupService: OcUserGroupService,
+  ) { }
 
   ngAfterViewInit(): void {
+    this.allOrders$ = this.getAllOrders()
+    this.verifyOrders$ = this.listOrders();
+    this.verifyUserAssignment();
     if (!this.approvalVersion) {
       this.columns.push('Favorite');
     }
@@ -74,6 +84,33 @@ export class OrderHistoryComponent implements AfterViewInit {
   protected listOrders(): Observable<ListOrder> {
     return this.activatedRoute.queryParamMap.pipe(
       flatMap((queryParamMap) => {
+
+        this.sortBy = queryParamMap.get('sortBy');
+        // we set param values to undefined so the sdk ignores them (dont show in headers)
+        const listOptions: MeOrderListOptions = {
+          sortBy: this.sortBy || undefined,
+          search: queryParamMap.get('search') || undefined,
+          page: parseInt(queryParamMap.get('page'), 10) || undefined,
+          filters: {
+            ID: this.buildFavoriteOrdersQuery(queryParamMap),
+            status:
+              queryParamMap.get('status') || `!${OrderStatus.Unsubmitted}`,
+            datesubmitted: queryParamMap.getAll('datesubmitted') || undefined,
+
+          },
+
+        };
+        return this.approvalVersion
+          ? this.ocMeService.ListApprovableOrders(listOptions)
+          : this.ocMeService.ListOrders(listOptions);
+      })
+    );
+  }
+
+  getAllOrders(): Observable<ListOrder> {
+
+    return this.activatedRoute.queryParamMap.pipe(
+      flatMap((queryParamMap) => {
         this.sortBy = queryParamMap.get('sortBy');
         // we set param values to undefined so the sdk ignores them (dont show in headers)
         const listOptions: MeOrderListOptions = {
@@ -87,12 +124,13 @@ export class OrderHistoryComponent implements AfterViewInit {
             datesubmitted: queryParamMap.getAll('datesubmitted') || undefined,
           },
         };
-        return this.approvalVersion
-          ? this.ocMeService.ListApprovableOrders(listOptions)
-          : this.ocMeService.ListOrders(listOptions);
+        return this.ocOrderService.List("All", listOptions)
+
       })
     );
+
   }
+
 
   private buildFavoriteOrdersQuery(
     queryParamMap: ParamMap
@@ -103,5 +141,32 @@ export class OrderHistoryComponent implements AfterViewInit {
     return this.hasFavoriteOrdersFilter && favorites && favorites.length
       ? favorites.join('|')
       : undefined;
+  }
+
+  verifyUserAssignment() {
+
+    this.isVerified = false;
+    const opt = {
+      userGroupID: this.userGrpID
+    }
+    this.verifyOrders$.subscribe(res => {
+      this.fromUserID = res.Items[0].FromUserID
+      this.OcUserGroupService.ListUserAssignments('BUYER_ORGANIZATION', opt).subscribe(res => {
+
+        for (let i = 0; i < res.Items.length; i++) {
+          console.log("con1: ", res.Items[i].UserID)
+          console.log("con2:", this.fromUserID)
+          if (this.fromUserID == res.Items[i].UserID) {
+            this.isVerified = true;
+            return
+          }
+          else {
+            this.isVerified = false;
+          }
+        }
+
+      })
+    })
+
   }
 }

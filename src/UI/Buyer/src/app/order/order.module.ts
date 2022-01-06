@@ -17,6 +17,7 @@ import { OrderComponent } from '@app-buyer/order/containers/order/order.componen
 import { OrderShipmentsComponent } from '@app-buyer/order/containers/order-shipments/order-shipments.component';
 import { OrderReorderComponent } from '@app-buyer/order/containers/order-reorder/order-reorder.component';
 import { OrderApprovalComponent } from '@app-buyer/order/containers/order-approval/order-approval.component';
+import { OrderAllListComponent } from './components/order-all-list/order-all-list.component';
 
 @NgModule({
   imports: [SharedModule, OrderRoutingModule],
@@ -33,6 +34,7 @@ import { OrderApprovalComponent } from '@app-buyer/order/containers/order-approv
     MyOrdersComponent,
     OrdersToApproveComponent,
     OrderApprovalComponent,
+    OrderAllListComponent,
   ],
   providers: [
     DatePipe, // allows us to use in class as injectable (date filter component)
