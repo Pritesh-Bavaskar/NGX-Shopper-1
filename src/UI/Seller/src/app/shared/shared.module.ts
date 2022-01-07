@@ -31,6 +31,8 @@ import { UserTableShowgroupsComponent } from './containers/user-table-showgroups
 import { AssignedGroupsComponent } from './components/assigned-groups/assigned-groups.component';
 import { AddressAssignmentComponent } from './components/address-assignment/address-assignment.component';
 import { AssignedGroupsTableComponent } from './components/assigned-groups-table/assigned-groups-table.component';
+import { AnnouncementTableComponent } from './containers/announcement-table/announcement-table.component';
+import { AnnouncementFormComponent } from './components/announcement-form/announcement-form.component';
 
 @NgModule({
   imports: [
@@ -94,6 +96,8 @@ import { AssignedGroupsTableComponent } from './components/assigned-groups-table
     AssignedGroupsComponent,
     AddressAssignmentComponent,
     AssignedGroupsTableComponent,
+    AnnouncementTableComponent,
+    AnnouncementFormComponent,
   ],
 })
 export class SharedModule {}

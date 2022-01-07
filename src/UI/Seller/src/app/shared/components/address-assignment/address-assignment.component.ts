@@ -42,11 +42,11 @@ export class AddressAssignmentComponent implements OnInit {
       .Get('BUYER_ORGANIZATION', '')
       .subscribe((res: any) => {
         this.addressIdarr = res.Items;
-        console.log(res.Items);
+        // console.log(res.Items);
       });
     this.ocUserService.Get('BUYER_ORGANIZATION', '').subscribe((res: any) => {
       this.userIdarr = res.Items;
-      console.log(res.Items);
+      // console.log(res.Items);
     });
   }
 

@@ -44,6 +44,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.0",
+    "ng-multiselect-dropdown": "^0.3.7",
     "ngx-cookie": "^4.1.2",
     "ngx-toastr": "^9.1.1",
     "popper.js": "^1.14.3",

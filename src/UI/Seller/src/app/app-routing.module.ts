@@ -9,7 +9,7 @@ import { CategoryDetailsComponent } from '@app-seller/shared/containers/category
 import { CategoryTableComponent } from '@app-seller/shared/containers/category-table/category-table.component';
 import { AssignedGroupsComponent } from './shared/components/assigned-groups/assigned-groups.component';
 // import { PriceSchedulerTableComponent } from './shared/containers/price-scheduler-table/price-scheduler-table.component';
-// import { AnnouncementTableComponent } from './shared/containers/announcement-table/announcement-table.component';
+import { AnnouncementTableComponent } from './shared/containers/announcement-table/announcement-table.component';
 // import { UserApprovableTableComponent } from './shared/containers/user-approvable-table/user-approvable-table.component';
 
 const routes: Routes = [
@@ -39,10 +39,10 @@ const routes: Routes = [
       //   path: 'price-scheduler',
       //   component: PriceSchedulerTableComponent,
       // },
-      // {
-      //   path: 'Announcements',
-      //   component: AnnouncementTableComponent,
-      // },
+      {
+        path: 'Announcements',
+        component: AnnouncementTableComponent,
+      },
       // {
       //   path: 'ApprovableUsers',
       //   component: UserApprovableTableComponent,
@@ -57,8 +57,8 @@ const routes: Routes = [
           () => import('./user-group-management/user-group.module').then(m => m.UserGroupModule),
       },
       {
-        path:'users/:userId',
-        component:AssignedGroupsComponent
+        path: 'users/:userId',
+        component: AssignedGroupsComponent
       }
     ],
   },
@@ -68,4 +68,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -10,6 +10,9 @@ import { CookieModule } from 'ngx-cookie';
 import { ToastrModule } from 'ngx-toastr';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import {
+  NgMultiSelectDropDownModule
+} from 'ng-multiselect-dropdown';
 
 // app modules
 import { SharedModule } from '@app-seller/shared';
@@ -53,6 +56,7 @@ import { AppErrorHandler } from './config/error-handling.config';
     OrderCloudModule.forRoot(OcSDKConfig),
     CookieModule.forRoot(),
     ToastrModule.forRoot(),
+    NgMultiSelectDropDownModule
   ],
   providers: [
     {
@@ -74,4 +78,4 @@ import { AppErrorHandler } from './config/error-handling.config';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
