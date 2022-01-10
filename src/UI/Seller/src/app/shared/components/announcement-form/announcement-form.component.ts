@@ -54,13 +54,13 @@ export class AnnouncementFormComponent implements OnInit {
   ngOnInit() {
     this.cDate = new Date().toISOString().slice(0, 10);
     this.setForm();
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
+    // this.dropdownList = [
+    //   { item_id: 1, item_text: 'Mumbai' },
+    //   { item_id: 2, item_text: 'Bangaluru' },
+    //   { item_id: 3, item_text: 'Pune' },
+    //   { item_id: 4, item_text: 'Navsari' },
+    //   { item_id: 5, item_text: 'New Delhi' }
+    // ];
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
@@ -72,13 +72,13 @@ export class AnnouncementFormComponent implements OnInit {
       allowSearchFilter: true
     };
     this.ocUserGroupService.List("BUYER_ORGANIZATION").subscribe(res => {
-      this.dropdownList = []
+      // this.dropdownList = []
       this.userGroups = res.Items;
       this.userGroups.forEach(element => {
         //let item={item_id:element.ID,item_text:element.Name}
-        this.dropdownList.push(element)
+        // this.dropdownList.push(element)
       });
-      console.log(this.dropdownList)
+      // console.log(this.dropdownList)
     })
   }
   @Input()
@@ -98,7 +98,7 @@ export class AnnouncementFormComponent implements OnInit {
       EndDate: this._existingAnnoucement.EndDate || '',
     });
     this.selectedItems = this._existingAnnoucement.userGroups
-    console.log("ug", this.selectedItems)
+
   }
   setForm() {
     this.announcementForm = this.formBuilder.group({

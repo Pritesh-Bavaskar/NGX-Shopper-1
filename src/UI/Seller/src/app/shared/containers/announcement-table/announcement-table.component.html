@@ -8,7 +8,7 @@
                 (click)="openNewAnnouncementModal()">
           <fa-icon [icon]="faPlusCircle"></fa-icon> New Announcements
         </button>
-        <!-- <shared-modal id="{{ modalID }}"
+        <shared-modal id="{{ modalID }}"
                       modalTitle="Create A New Announcement">
           <app-announcement-form 
                       btnText="Save"
@@ -21,9 +21,9 @@
           <app-announcement-form 
                       btnText="Save"
                       [existingAnnouncement]="selectedAnnoucement"
-                      (formSubmitted)="EditAnnoucement($event,$event.ID)"
+                      (formSubmitted)="EditAnnoucement($event)"
                        ></app-announcement-form>
-        </shared-modal> -->
+        </shared-modal>
         
     
       </div>

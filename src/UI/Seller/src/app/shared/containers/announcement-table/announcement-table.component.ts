@@ -21,12 +21,13 @@ export class AnnouncementTableComponent extends BaseBrowse implements OnInit {
   columns = ['Title', 'Order', 'Delete'];
   announcements: any;
   announcementsData: any = [];
-  faTrash = faTrashAlt;
-  faCircle = faCircle;
   modalID = 'NewAnnouncementModal';
   editModalID = 'EditAnnouncementModal';
-  faPlusCircle = faPlusCircle;
   selectedAnnoucement: any;
+  faTrash = faTrashAlt;
+  faCircle = faCircle;
+  faPlusCircle = faPlusCircle;
+
   constructor(
     private ocBuyerService: OcBuyerService,
     private toasterService: ToastrService,
@@ -36,14 +37,19 @@ export class AnnouncementTableComponent extends BaseBrowse implements OnInit {
     super();
   }
 
+
   ngOnInit() {
     this.loadData();
   }
+
+
   loadData() {
     this.ocBuyerService.Get(this.appConfig.buyerID).subscribe((x) => {
       this.announcements = x.xp.Announcement;
     });
   }
+
+
   openNewAnnouncementModal() {
     this.modalService.open(this.modalID);
   }
@@ -52,7 +58,6 @@ export class AnnouncementTableComponent extends BaseBrowse implements OnInit {
 
     this.ocBuyerService.Get(this.appConfig.buyerID).subscribe((x) => {
       this.announcementsData = x.xp.Announcement;
-
       this.announcementsData.push(announcement);
 
     });
@@ -76,31 +81,31 @@ export class AnnouncementTableComponent extends BaseBrowse implements OnInit {
 
   }
 
-  EditAnnoucement(annoucement: any, id: any) {
-
-    // console.log(annoucement)
-    // console.log(id)
+  EditAnnoucement(annoucement: any) {
+    console.log(annoucement)
     this.ocBuyerService.Get(this.appConfig.buyerID).subscribe((x) => {
       let newAnnoucementArray = [];
-      console.log(x)
 
       x.xp.Announcement.forEach((element) => {
-
-        // console.log(element);
-        if (element.ID == id) {
+        if (element.ID == annoucement.ID) {
+          console.log("here")
           element.Title = annoucement.Title
           element.Order = annoucement.Order
           element.StartDate = annoucement.StartDate
           element.EndDate = annoucement.EndDate
           element.userGroups = annoucement.userGroups
         }
+
+        console.log("ele", element)
         newAnnoucementArray.push(element)
       });
 
+      console.log("new", newAnnoucementArray)
       setTimeout(() => {
         const partialBuyer = {
           xp: { Announcement: newAnnoucementArray },
         };
+        console.log(partialBuyer)
         this.ocBuyerService
           .Patch(this.appConfig.buyerID, partialBuyer)
           .subscribe((x) => {
@@ -131,7 +136,6 @@ export class AnnouncementTableComponent extends BaseBrowse implements OnInit {
         this.ocBuyerService
           .Patch(this.appConfig.buyerID, partialBuyer)
           .subscribe((x) => {
-            // this.modalService.close(this.modalID);
             this.loadData();
             this.toasterService.success('Announcement Deleted Succesfully')
           });

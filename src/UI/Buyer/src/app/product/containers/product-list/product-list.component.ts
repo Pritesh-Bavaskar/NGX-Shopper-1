@@ -43,10 +43,14 @@ export class ProductListComponent implements OnInit {
     public favoriteProductsService: FavoriteProductsService,
     private appStateService: AppStateService,
     private modalService: ModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.productList$ = this.getProductData();
+    // console.log(this.productList$)
+    // this.productList$.subscribe(res => {
+    //   console.log(res)
+    // })
     this.getCategories();
     this.configureRouter();
     this.appStateService.lineItemSubject.subscribe(
@@ -54,6 +58,12 @@ export class ProductListComponent implements OnInit {
     );
   }
 
+  // getProductDatas(): Observable<ListBuyerProduct> {
+  //   return this.ocMeService
+  //     .ListProducts()
+  //     .pipe(tap((productList) => (this.facets = productList.Meta.Facets)));
+
+  // }
   getProductData(): Observable<ListBuyerProduct> {
     return this.activatedRoute.queryParams.pipe(
       tap((queryParams) => {
