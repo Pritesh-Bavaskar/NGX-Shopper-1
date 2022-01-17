@@ -83,11 +83,9 @@
         <div class="col-12 col-md-auto mr-auto ">
           <div class="m-0 mt-1 text-center">
             <span *ngIf="productList.Meta.TotalPages > 1">
-              {{
-                (productList.Meta.Page - 1) * productList.Meta.PageSize + 1
-              }}
-              - {{ productList.Meta.Page * productList.Meta.PageSize }}
-              of </span
+              {{ (productList.Meta.Page - 1) * productList.Meta.PageSize + 1 }}
+              -
+              {{ productList.Meta.Page * productList.Meta.PageSize }} of </span
             >{{ productList.Meta.TotalCount }} results
           </div>
         </div>

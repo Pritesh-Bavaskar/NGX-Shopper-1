@@ -33,6 +33,8 @@ import { AddressAssignmentComponent } from './components/address-assignment/addr
 import { AssignedGroupsTableComponent } from './components/assigned-groups-table/assigned-groups-table.component';
 import { AnnouncementTableComponent } from './containers/announcement-table/announcement-table.component';
 import { AnnouncementFormComponent } from './components/announcement-form/announcement-form.component';
+import { PriceSchedulerFormComponent } from './components/price-scheduler-form/price-scheduler-form.component';
+import { PriceSchedulerTableComponent } from './containers/price-scheduler-table/price-scheduler-table.component';
 
 @NgModule({
   imports: [
@@ -98,6 +100,8 @@ import { AnnouncementFormComponent } from './components/announcement-form/announ
     AssignedGroupsTableComponent,
     AnnouncementTableComponent,
     AnnouncementFormComponent,
+    PriceSchedulerFormComponent,
+    PriceSchedulerTableComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

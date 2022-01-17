@@ -54,13 +54,7 @@ export class AnnouncementFormComponent implements OnInit {
   ngOnInit() {
     this.cDate = new Date().toISOString().slice(0, 10);
     this.setForm();
-    // this.dropdownList = [
-    //   { item_id: 1, item_text: 'Mumbai' },
-    //   { item_id: 2, item_text: 'Bangaluru' },
-    //   { item_id: 3, item_text: 'Pune' },
-    //   { item_id: 4, item_text: 'Navsari' },
-    //   { item_id: 5, item_text: 'New Delhi' }
-    // ];
+
     this.selectedItems = [];
     this.dropdownSettings = {
       singleSelection: false,
@@ -72,23 +66,22 @@ export class AnnouncementFormComponent implements OnInit {
       allowSearchFilter: true
     };
     this.ocUserGroupService.List("BUYER_ORGANIZATION").subscribe(res => {
-      // this.dropdownList = []
+
       this.userGroups = res.Items;
       this.userGroups.forEach(element => {
-        //let item={item_id:element.ID,item_text:element.Name}
-        // this.dropdownList.push(element)
+
       });
-      // console.log(this.dropdownList)
+
     })
   }
   @Input()
   set existingAnnouncement(annoucement: any) {
     this._existingAnnoucement = annoucement || {};
-    // console.log(this._existingAnnoucement.ID)
+
     this.existingId = this._existingAnnoucement.ID;
     if (!this.announcementForm) {
       this.setForm();
-      //console.log(this._existingAnnoucement.ID)
+
       return;
     }
     this.announcementForm.setValue({
@@ -121,11 +114,9 @@ export class AnnouncementFormComponent implements OnInit {
 
   onItemSelect(item: any) {
     console.log(item);
-    // this.selectedGroups.push(item)
   }
   onSelectAll(items: any) {
     console.log(items);
-    //  this.selectedGroups.push(items)
   }
   protected onSubmit() {
     if (this.announcementForm.status === 'INVALID') {
@@ -162,7 +153,6 @@ export class AnnouncementFormComponent implements OnInit {
     }
   }
 
-  // control display of error messages
   protected hasRequiredError = (controlName: string) =>
     this.formErrorService.hasRequiredError(controlName, this.announcementForm);
   protected hasPatternError = (controlName: string) =>

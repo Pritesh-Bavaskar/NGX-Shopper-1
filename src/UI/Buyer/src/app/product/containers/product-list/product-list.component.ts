@@ -78,6 +78,7 @@ export class ProductListComponent implements OnInit {
           .ListProducts({
             categoryID: queryParams.category,
             page: queryParams.page,
+            pageSize: 8,
             search: queryParams.search,
             sortBy: queryParams.sortBy,
             filters: {

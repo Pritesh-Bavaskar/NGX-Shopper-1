@@ -10,6 +10,7 @@ import { CategoryTableComponent } from '@app-seller/shared/containers/category-t
 import { AssignedGroupsComponent } from './shared/components/assigned-groups/assigned-groups.component';
 // import { PriceSchedulerTableComponent } from './shared/containers/price-scheduler-table/price-scheduler-table.component';
 import { AnnouncementTableComponent } from './shared/containers/announcement-table/announcement-table.component';
+import { PriceSchedulerTableComponent } from './shared/containers/price-scheduler-table/price-scheduler-table.component';
 // import { UserApprovableTableComponent } from './shared/containers/user-approvable-table/user-approvable-table.component';
 
 const routes: Routes = [
@@ -35,12 +36,12 @@ const routes: Routes = [
         path: 'addresses',
         component: AddressTableComponent,
       },
-      // {
-      //   path: 'price-scheduler',
-      //   component: PriceSchedulerTableComponent,
-      // },
       {
-        path: 'Announcements',
+        path: 'price-scheduler',
+        component: PriceSchedulerTableComponent,
+      },
+      {
+        path: 'announcements',
         component: AnnouncementTableComponent,
       },
       // {

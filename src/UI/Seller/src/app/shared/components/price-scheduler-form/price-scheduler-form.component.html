@@ -1,0 +1,132 @@
+<form (ngSubmit)="onSubmit()"
+      novalidate
+      [formGroup]="priceScheduleForm"
+      name="priceScheduleForm">
+  <div class="form-group row">
+    <label for="ID"
+           class="col-sm-3 control-label font-weight-bold mt-1">ID</label>
+    <div class="col-sm-9">
+      <input type="text"
+             formControlName="ID"
+             class="form-control"
+             id="ID"
+             placeholder="(Optional)" />
+    </div>
+  </div>
+  <span *ngIf="hasPatternError('ID')"
+        class="error-message">ID can only contain characters Aa-Zz 0-9 - _ (no spaces)</span>
+
+  <div class="form-group row">
+    <label for="Name"
+           class="col-sm-3 control-label font-weight-bold mt-1">Name</label>
+    <div class="col-sm-9">
+      <input type="text"
+             formControlName="Name"
+             class="form-control"
+             id="Name" />
+    </div>
+  </div>
+  <span *ngIf="hasPatternError('Name')"
+        class="error-message">Product Name can only contain 60 characters Aa-Zz 0-9 -(),:;&*</span>
+  <span *ngIf="hasRequiredError('Name')"
+        class="error-message">Name is Required</span>
+
+  <div class="form-group row">
+    <label for="MinQuantity"
+           class="col-sm-3 control-label font-weight-bold mt-1">Min Quantity</label>
+    <div class="col-sm-9">
+      <input type="number"
+             formControlName="MinQuantity"
+             class="form-control"
+             id="MinQuantity" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="MaxQuantity"
+           class="col-sm-3 control-label font-weight-bold mt-1">Max Quantity</label>
+    <div class="col-sm-9">
+      <input type="number"
+             formControlName="MaxQuantity"
+             class="form-control"
+             id="MaxQuantity" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="ApplyTax"
+           class="col-sm-3 control-label font-weight-bold mt-1">Apply Tax</label>
+    <div class="col-sm-9">
+      <input type="checkbox"
+             formControlName="ApplyTax"
+             class="mr-2"
+             id="ApplyTax" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="ApplyShipping"
+           class="col-sm-3 control-label font-weight-bold mt-1">Apply Shipping</label>
+    <div class="col-sm-9">
+      <input type="checkbox"
+             formControlName="ApplyShipping"
+             class="mr-2"
+             id="ApplyShipping" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="UseCumulativeQuantity"
+           class="col-sm-3 control-label font-weight-bold mt-1">Use Cumulative Quantity</label>
+    <div class="col-sm-9">
+      <input type="checkbox"
+             formControlName="UseCumulativeQuantity"
+             class="mr-2"
+             id="UseCumulativeQuantity" />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="RestrictedQuantity"
+           class="col-sm-3 control-label font-weight-bold mt-1">Restricted Quantity</label>
+    <div class="col-sm-9">
+      <input type="checkbox"
+             formControlName="RestrictedQuantity"
+             class="mr-2"
+             id="RestrictedQuantity" />
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="Desc"
+           class="col-sm-3 control-label font-weight-bold mt-1">Description</label>
+    <div class="col-sm-9">
+      <input type="text"
+             formControlName="Desc"
+             class="form-control"
+             id="Desc"
+             placeholder="(Optional)" />
+    </div>
+  </div>
+
+
+  <div class="form-group row" formArrayName="PriceBreaks" *ngFor="let item of priceScheduleForm.get('PriceBreaks').controls; let i = index;">
+    <label for="PriceBreak"
+           class="col-sm-3 control-label font-weight-bold mt-1">Price Break  {{i+1}}</label>
+    <div class="col-sm-9">
+      <div  >
+        <div class="row" [formGroupName]="i">
+            <input  class="col-sm-3 form-control mx-3" type="number" formControlName="Price" placeholder="Price">
+            <input  class="col-sm-3 form-control" type="number" formControlName="Quantity" placeholder="Quantity">
+            <button class="btn btn-danger mx-3" (click)="deleteRow(i)">X</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="form-group float-right m-3">
+    <button  class="btn btn-success" (click)="AddPriceBreakRow()">Add Price Breaks</button>
+  </div>
+  
+
+ 
+
+  <button type="submit"
+          class="btn btn-primary mt-4 w-100">{{ btnText }}</button>
+</form>
